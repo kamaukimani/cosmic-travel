@@ -8,3 +8,15 @@ class Planets(Resource):
         planets=[planet.to_dict(rules=("-missions",)) for planet in Planet.query.all()]
 
         return make_response(planets,200)
+
+class PlanetById(Resource):
+    def get(self,id):
+        planet=Planet.query.filter_by(id=id).first()
+
+        if planet is None:
+
+            return {"error":"Planet not found"},404
+
+        response=planet.to_dict()
+
+        return make_response(response,200)
