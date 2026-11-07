@@ -12,6 +12,7 @@ flask-restful = "*"
 python-dotenv = "*"
 sqlalchemy-serializer = "*"
 psycopg = {extras = ["binary", "pool"], version = "*"}
+gunicorn = "*"
 
 [dev-packages]
 
