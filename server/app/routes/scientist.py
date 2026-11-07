@@ -39,3 +39,23 @@ class ScientistById(Resource):
             return make_response(response,200)
 
         return {"error": "Scientist not found"},404
+
+    def patch(self,id):
+        scientist=Scientist.query.filter_by(id=id).first()
+
+        if scientist is None:
+            
+            return {"error": "Scientist not found"},404
+
+        data=request.get_json()
+
+        allowed_fields=["name","field_of_study"]
+
+        for attr,value in data.items():
+            if attr in allowed_fields:
+                setattr(scientist,attr,value)
+        db.session.commit()
+
+        response=scientist.to_dict()
+
+        return make_response(response,202)
