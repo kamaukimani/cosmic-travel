@@ -7,6 +7,8 @@ from sqlalchemy.ext.associationproxy import association_proxy
 class Scientist(db.Model,SerializerMixin):
     __tablename__="scientists"
 
+    serialize_rules=("-missions.scientist",)
+
     id:Mapped[int]=mapped_column(primary_key=True)
     name:Mapped[str]
     field_of_study:Mapped[str]

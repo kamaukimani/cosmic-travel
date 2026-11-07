@@ -7,6 +7,8 @@ from sqlalchemy import ForeignKey
 class Mission(db.Model,SerializerMixin):
     __tablename__="missions"
 
+    serialize_rules=("-scientist.missions","-planet.missions",)
+
     id:Mapped[int]=mapped_column(primary_key=True)
     name:Mapped[str]
 

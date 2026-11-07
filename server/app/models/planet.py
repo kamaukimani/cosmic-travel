@@ -7,6 +7,8 @@ from sqlalchemy.ext.associationproxy import association_proxy
 class Planet(db.Model,SerializerMixin):
     __tablename__="planets"
 
+    serialize_rules=("-missions.planet",)
+
     id:Mapped[int]=mapped_column(primary_key=True)
     name:Mapped[str]
     distance_from_earth:Mapped[int]
