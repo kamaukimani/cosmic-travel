@@ -3,6 +3,7 @@ from .config import Config
 from .db import db,migrate
 from .models import *
 from flask_restful import Api
+from .routes import *
 
 
 def create_app():
@@ -13,6 +14,8 @@ def create_app():
     db.init_app(app)
     migrate.init_app(app,db)
     api=Api(app)
+
+    api.add_resource(Scientists,'/scientists',endpoint="scientists")
 
 
     return app
