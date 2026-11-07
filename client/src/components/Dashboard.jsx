@@ -3,12 +3,12 @@ import ScientistCard from "./ScientistCard";
 import ScientistForm from "./ScientistForm";
 import GridLoader from "react-spinners/GridLoader";
 
-function Dashboard() {
+function Dashboard({API_URL}) {
   const [scientists, setScientists] = useState([]);
 
   useEffect(() => {
     const fetchScientists = async () => {
-      const response = await fetch("/scientists");
+      const response = await fetch(`${API_URL}/scientists`);
       const sciArr = await response.json();
       setScientists(sciArr);
     };
@@ -20,7 +20,7 @@ function Dashboard() {
   }
 
   function handleDeleteScientist(id) {
-    fetch(`/scientists/${id}`, { method: "DELETE" }).then((r) => {
+    fetch(`${API_URL}/scientists/${id}`, { method: "DELETE" }).then((r) => {
       if (r.ok) {
         setScientists((scientists) =>
           scientists.filter((sci) => sci.id !== id)
@@ -44,7 +44,7 @@ function Dashboard() {
         <div className="sciList">{sciCards}</div>
       </Suspense>
       <hr />
-      <ScientistForm onScientistRequest={handleAddScientist} edit={false} />
+      <ScientistForm onScientistRequest={handleAddScientist} edit={false} API_URL={API_URL}/>
     </>
   );
 }
