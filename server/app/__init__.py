@@ -19,6 +19,7 @@ def create_app():
     api.add_resource(ScientistById,'/scientists/<int:id>',endpoint="scientist_id")
     api.add_resource(Planets,'/planets',endpoint="planets")
     api.add_resource(PlanetById,'/planets/<int:id>',endpoint="planet_id")
+    api.add_resource(Missions,'/missions',endpoint="missions")
 
 
     return app
