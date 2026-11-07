@@ -1,25 +1,33 @@
-import logo from './logo.svg';
-import './App.css';
+import React from 'react'
+import { Routes, Route } from 'react-router-dom'
+import Header from './components/Header'
+import Dashboard from './components/Dashboard'
+import ScientistDetail from './components/ScientistDetail'
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <Header />
+
+      <main>
+        <Routes>
+          <Route index element={<Dashboard />} />
+          <Route
+            path="/scientists/:id/*"
+            element={<ScientistDetail />}
+          />
+          <Route
+            path="*"
+            element={<h2>404 - Page Not Found</h2>}
+          />
+        </Routes>
+      </main>
+
+      <footer>
+        <p>Scientist Dashboard © 2026</p>
+      </footer>
     </div>
-  );
+  )
 }
 
-export default App;
+export default App
