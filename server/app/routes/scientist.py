@@ -1,6 +1,7 @@
 from flask_restful import Resource 
 from app.models import Scientist 
-from flask import request,make_response   
+from flask import request,make_response 
+from app.db import db  
 
 class Scientists(Resource):
     def get(self):
@@ -8,13 +9,31 @@ class Scientists(Resource):
 
         return make_response(scientists,200)
 
+    def post(self):
+
+        scientist=Scientist()
+        data=request.get_json()
+
+        if "name" in data and "field_of_study" in data:
+            allowed_fields=["name","field_of_study"]
+            for attr,value in data.items():
+                if attr in allowed_fields:
+                    setattr(scientist,attr,value)
+            db.session.add(scientist)
+            db.session.commit()
+
+            response=scientist.to_dict()
+
+            return make_response(response,201)
+        return {"errors": ["validation errors"]},422
+
 
 class ScientistById(Resource):
     def get(self,id):
         scientist=Scientist.query.filter(Scientist.id == id).first()
 
         if scientist:
-            
+
             response=scientist.to_dict()
 
             return make_response(response,200)
