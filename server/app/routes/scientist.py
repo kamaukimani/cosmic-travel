@@ -44,7 +44,7 @@ class ScientistById(Resource):
         scientist=Scientist.query.filter_by(id=id).first()
 
         if scientist is None:
-            
+
             return {"error": "Scientist not found"},404
 
         data=request.get_json()
@@ -59,3 +59,14 @@ class ScientistById(Resource):
         response=scientist.to_dict()
 
         return make_response(response,202)
+    def delete(self,id):
+        scientist=Scientist.query.filter_by(id=id).first()
+
+        if scientist is None:
+
+            return {"error": "Scientist not found"},404
+
+        db.session.delete(scientist)
+        db.session.commit()
+
+        return {},204
