@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 
-function AddMission({ onAddMission, scientistId }) {
+function AddMission({ onAddMission, scientistId, API_URL }) {
   const [formData, setFormData] = useState({
     name: "",
     planet_id: "",
@@ -10,7 +10,7 @@ function AddMission({ onAddMission, scientistId }) {
 
   useEffect(() => {
     const fetchPlanets = async () => {
-      const res = await fetch("/planets");
+      const res = await fetch(`${API_URL}/planets`);
       const planetArr = await res.json();
       setPlanets(planetArr);
     };
@@ -39,7 +39,7 @@ function AddMission({ onAddMission, scientistId }) {
       },
       body: JSON.stringify(newMission),
     };
-    const res = await fetch("/missions", config);
+    const res = await fetch(`${API_URL}/missions`, config);
     if (res.ok) {
       const missionJson = await res.json();
       onAddMission(missionJson);

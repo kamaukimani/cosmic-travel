@@ -5,16 +5,18 @@ import Dashboard from './components/Dashboard'
 import ScientistDetail from './components/ScientistDetail'
 
 function App() {
+
+  const API_URL="http://localhost:5555"
   return (
     <div>
       <Header />
 
       <main>
         <Routes>
-          <Route index element={<Dashboard />} />
+          <Route index element={<Dashboard API_URL={API_URL}/>} />
           <Route
             path="/scientists/:id/*"
-            element={<ScientistDetail />}
+            element={<ScientistDetail API_URL={API_URL}/>}
           />
           <Route
             path="*"

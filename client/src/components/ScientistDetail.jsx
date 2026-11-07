@@ -4,7 +4,7 @@ import PlanetCard from "./PlanetCard";
 import AddMission from "./AddMission";
 import ScientistForm from "./ScientistForm";
 
-function ScientistDetail() {
+function ScientistDetail({API_URL}) {
   const [{ data: scientist, error, status }, setScientist] = useState({
     data: null,
     error: null,
@@ -15,7 +15,7 @@ function ScientistDetail() {
   const { id } = useParams();
 
   const fetchScientist = useCallback(async () => {
-    const res = await fetch(`/scientists/${id}`);
+    const res = await fetch(`${API_URL}/scientists/${id}`);
     if (res.ok) {
       const sciJSON = await res.json();
       setScientist({ data: sciJSON, error: null, status: "resolved" });
@@ -65,13 +65,14 @@ function ScientistDetail() {
           scientist={scientist}
           onScientistRequest={handleUpdateScientist}
           edit={true}
+          API_URL={API_URL}
         />
       )}
       <hr />
       <h2>Mission Planets:</h2>
       <div className="planetList">{planetCards}</div>
       <hr />
-      <AddMission onAddMission={handleAddMission} scientistId={scientist.id} />
+      <AddMission onAddMission={handleAddMission} scientistId={scientist.id} API_URL={API_URL}/>
     </div>
   );
 }

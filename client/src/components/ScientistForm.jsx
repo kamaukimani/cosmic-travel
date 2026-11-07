@@ -7,6 +7,7 @@ export default function ScientistForm({
     field_of_study: "",
   },
   edit,
+  API_URL
 }) {
   const [formData, setFormData] = useState(scientist);
   const [errors, setErrors] = useState([]);
@@ -19,7 +20,7 @@ export default function ScientistForm({
       },
       body: JSON.stringify(formData),
     };
-    const res = await fetch("/scientists", config);
+    const res = await fetch(`${API_URL}/scientists`, config);
     if (res.ok) {
       const newSci = await res.json();
       onScientistRequest(newSci);
@@ -46,7 +47,7 @@ export default function ScientistForm({
       },
       body: JSON.stringify(updateData),
     };
-    const res = await fetch(`/scientists/${scientist.id}`, config);
+    const res = await fetch(`${API_URL}/scientists/${scientist.id}`, config);
     if (res.ok) {
       onScientistRequest();
       setFormData({
